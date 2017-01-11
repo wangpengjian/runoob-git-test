@@ -109,7 +109,7 @@ html,body{
 	background-size: 100%;
 }
 .showbox ul{
-	padding:20px 0;
+	padding: 20px 0;
 	max-height: 360px;
 	word-break:keep-all;
 	overflow-y:auto;

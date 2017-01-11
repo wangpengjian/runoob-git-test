@@ -1,7 +1,8 @@
 $(function(){
-    // setInterval("newchat()",1000) 
-    newchat();
-	function newchat () {
+	
+    setInterval(newchat(),1000) 
+    chat();
+	function chat () {
 		$.ajax({
 			type:"get",
 			url:"http://test.zhituteam.com/chat/index.php?c=chat&a=chatlist",
@@ -55,14 +56,15 @@ $(function(){
 				        $('.showbox ul').append(str);
 				        $('.write_content').val('');
 					}
+					$(".box").scrollTop($(".box")[0].scrollHeight);
 	        	}
 	        }  
 		})
 	}
 	$(".sub").click(function(){
 		var write_content=$(".write_content").val();
-		var user_name="王鹏鉴";
 		var number="1607640764";
+		var user_name = "王鹏鉴";
 		$.ajax({
 			url:"http://test.zhituteam.com/chat/index.php?c=chat&a=addChat",
 			type:"post",
@@ -71,12 +73,17 @@ $(function(){
 				"content":write_content
 			},
 			success:function(data){
+				console.log(data)
 				if(data.status=="ok"){
-					var str = "<li class='new float'><p class='detail'><span class='name'>"+user_name+"</span><span class='number'>"+number+"</span></p><p class='content'>"+write_content+"</p></li>";
+					
+                    content = write_content.replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});
+					var str = "<li class='new float'><p class='detail'><span class='name'>"+user_name+"</span><span class='number'>"+number+"</span></p><p class='content'>"+content+"</p></li>";
 			        $('.showbox ul').append(str);
-			        $('.write_content').val('');					
+			        $('.write_content').val('');
+			        $(".box").scrollTop($(".box")[0].scrollHeight);					
 	        	}
 			}
 		})
+
 	})
 })
